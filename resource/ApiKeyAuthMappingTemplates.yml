@@ -1,20 +1,20 @@
 - dataSource: createUser
   type: Mutation
-  field: uploadImageToS3
+  field: createUser
   request: "Mutation.createUser.request.vtx"
   response: "Mutation.createUser.response.vtx"
 - dataSource: deleteUser
   type: Mutation
-  field: listEvents
+  field: deleteUser
   request: "Query.deleteUser.request.vtx"
   response: "Query.deleteUser.response.vtx"
 - dataSource: getUser
   type: Query
-  field: getGroupForURL
+  field: loadUserDetails
   request: "Query.getUser.request.vtx"
   response: "Query.getUser.response.vtx"
 - dataSource: updateUser
   type: Mutation
-  field: loadUserDetails
+  field: updateUser
   request: "Query.updateUser.request.vtx"
   response: "Query.updateUser.response.vtx"

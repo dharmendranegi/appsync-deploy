@@ -1,6 +1,6 @@
 const okResponse = (body = "success") => ({
   statusCode: 200,
-  body: JSON.stringify(body),
+  body: JSON.stringify(body)
 });
 
 const internalServerError = async (error = "Internal server error") => {
@@ -25,15 +25,10 @@ const deleteResponse = data => ({
   message: data
 });
 
-
 module.exports.responseMessages = {
   internalServerError,
   okResponse,
-  resourceNotFound,
   createResponse,
   updateResponse,
-  deleteResponse,
-  badRequestResponse,
-  forbiddenResponse,
-  timedOutResponse
+  deleteResponse
 };

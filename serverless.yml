@@ -21,10 +21,10 @@ plugins:
   - serverless-dotenv-plugin
 
 functions:
-  createUser: ${file(./resource/lambdaResource/uploadImage.yml)}
-  updateUser: ${file(./resource/lambdaResource/userDetails.yml)}
-  deleteUser: ${file(./resource/lambdaResource/searchAll.yml)}
-  getUser: ${file(./resource/lambdaResource/listEvents.yml)}
+  createUser: ${file(./resource/lambdaResource/createUser.yml)}
+  updateUser: ${file(./resource/lambdaResource/updateUser.yml)}
+  deleteUser: ${file(./resource/lambdaResource/deleteUser.yml)}
+  getUser: ${file(./resource/lambdaResource/getUser.yml)}
 
 custom:
   splitStacks:
@@ -39,7 +39,7 @@ resources:
       Type: 'AWS::DynamoDB::Table'
       Properties:
         AttributeDefinitions:
-          - AttributeName: firstName
+          - AttributeName: id
             AttributeType: S
         KeySchema:
           - AttributeName: id
@@ -48,11 +48,3 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
-
-  Outputs:
-    CognitoUserPoolId:
-      Value:
-        Ref: CognitoUserPool
-    CognitoUserPoolClientId:
-      Value:
-        Ref: CognitoUserPoolClient

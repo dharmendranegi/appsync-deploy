@@ -3,20 +3,18 @@ const uuid = require("uuid");
 
 const tableName = process.env.DYNAMODB_TABLE;
 
-const {
-  createUserValidation
-} = require("../../Utils/inputValidation");
+const { createUserValidation } = require("../../Utils/inputValidation");
 const {
   badRequestResponse,
   createResponse,
   internalServerError
 } = require("../../Utils/responseCodes").responseMessages;
 
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-async function createItem(params){
+async function createItem(params) {
   try {
     await dynamoDb.put(params).promise();
   } catch (err) {
@@ -32,16 +30,17 @@ exports.handler = async event => {
   const id = uuid.v4();
 
   const params = {
-    TableName : tableName,
+    TableName: tableName,
     Item: {
-      id: id
+      id: id,
+      ...event
     }
-  }
+  };
 
   try {
-    await createItem(params)
-    return createResponse("User Created Successfully")
+    await createItem(params);
+    return createResponse("User Created Successfully");
   } catch (err) {
-    return internalServerError(error)
+    return internalServerError(error);
   }
 };

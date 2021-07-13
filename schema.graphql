@@ -50,7 +50,6 @@ type Mutation {
 type Query {
     # Query for user details
     loadUserDetails(user_id: ID!): AWSJSON
-
 }
 
 schema {

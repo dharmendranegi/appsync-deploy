@@ -1,4 +1,4 @@
-handler: createUser/index.main
+handler: createUser/index.handler
 name: createUser-${self:provider.stage}
 package:
   individually: true

@@ -2,10 +2,7 @@ const { mandatoryFieldsValidation } = require("./validators");
 
 const createUserValidation = data => {
   const errors = [];
-  const createUserMandatoryFields = [
-    "name",
-    "emailId"
-  ];
+  const createUserMandatoryFields = ["name", "emailId"];
 
   const mandatoryFieldsValidationForUsers = (mandatoryFieldsArray, dataObj) =>
     mandatoryFieldsArray.filter(
@@ -60,7 +57,6 @@ const updateUserInputValidation = data => {
     );
   return errors;
 };
-
 
 const deleteUserInputValidation = data => {
   const errors = [];
