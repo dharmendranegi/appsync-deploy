@@ -3,8 +3,8 @@
 #on:
 #  push:
 #    branches:
-#      - main
 #      - test
+#      - main
 #
 #jobs:
 #  format-check:
@@ -22,7 +22,7 @@
 #      - name: Format files
 #        run: npm run formatCheck --verbose
 #
-#  dev-deploy:
+#  deploy:
 #    needs: test-before-deploy
 #    runs-on: ubuntu-latest
 #    env:
@@ -45,8 +45,8 @@
 #        run: npm run bundle
 #
 #      - name: Deploy dev
-#        if: github.ref == 'refs/heads/main'
-#        run: serverless deploy --stage dev --region ap-south-1 --verbose
+#        if: github.ref == 'refs/heads/test'
+#        run: serverless deploy --stage dev --region us-west-2 --verbose
 #      - name: Deploy production
-#        if: github.ref == 'refs/heads/prod'
-#        run: serverless deploy --stage prod --region eu-west-1 --verbose
+#        if: github.ref == 'refs/heads/main'
+#        run: serverless deploy --stage dev --region eu-west-1 --verbose
