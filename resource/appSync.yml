@@ -1,0 +1,32 @@
+# creating the API and an API key
+- name: Appsync-deploy
+  authenticationType: API_KEY
+  apiKeys:
+    - myApiKey
+  dataSources:
+    - type: AWS_LAMBDA
+      name: createUser
+      description: 'Lambda DataSource'
+      config:
+        functionName: createUser
+        iamRoleStatements: ${file(./resource/AppSyncServiceRole.yml)}
+    - type: AWS_LAMBDA
+      name: deleteUser
+      description: 'Lambda DataSource'
+      config:
+        functionName: deleteUser
+        iamRoleStatements: ${file(./resource/AppSyncServiceRole.yml)}
+    - type: AWS_LAMBDA
+      name: getUser
+      description: 'Lambda DataSource'
+      config:
+        functionName: getUser
+        iamRoleStatements: ${file(./resource/AppSyncServiceRole.yml)}
+    - type: AWS_LAMBDA
+      name: updateUser
+      description: 'Lambda DataSource'
+      config:
+        functionName: updateUser
+        iamRoleStatements: ${file(./resource/AppSyncServiceRole.yml)}
+  schema: schema.graphql
+  mappingTemplates: ${file(./resource/ApiKeyAuthMappingTemplates.yml)}

@@ -1,0 +1,5 @@
+handler: deleteUser/index.main
+name: deleteUser
+package:
+  individually: true
+  artifact: "./dist/deleteUser.zip"

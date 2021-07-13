@@ -1,0 +1,5 @@
+handler: createUser/index.main
+name: createUser-${self:provider.stage}
+package:
+  individually: true
+  artifact: "./dist/createUser.zip"

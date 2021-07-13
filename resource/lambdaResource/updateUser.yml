@@ -1,0 +1,5 @@
+handler: updateUser/index.main
+name: updateUser-${self:provider.stage}
+package:
+  individually: true
+  artifact: "./dist/updateUser.zip"

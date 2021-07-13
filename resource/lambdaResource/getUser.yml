@@ -1,0 +1,5 @@
+handler: getUser/index.main
+name: getUser-${self:provider.stage}
+package:
+  individually: true
+  artifact: "./dist/getUser.zip"

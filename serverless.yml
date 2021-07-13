@@ -1,0 +1,58 @@
+service: appsync-deploy
+
+provider:
+  name: aws
+  region: ${env:REGION, 'us-west-2'}
+  stage: ${opt:stage, 'dev'}
+  runtime: nodejs12.x
+  memorySize: 256
+  timeout: 30
+  environment:
+    REGION: ${self:provider.region}
+    SERVICE_NAME: ${self:service}-${self:provider.stage}
+    STAGE: ${self:provider.stage, dev}
+    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+  iamRoleStatements: ${file(./resource/LambdaRole.yml)}
+
+plugins:
+  - serverless-pseudo-parameters
+  - serverless-plugin-split-stacks
+  - serverless-appsync-plugin
+  - serverless-dotenv-plugin
+
+functions:
+  createUser: ${file(./resource/lambdaResource/uploadImage.yml)}
+  updateUser: ${file(./resource/lambdaResource/userDetails.yml)}
+  deleteUser: ${file(./resource/lambdaResource/searchAll.yml)}
+  getUser: ${file(./resource/lambdaResource/listEvents.yml)}
+
+custom:
+  splitStacks:
+    nestedStackCount: 4
+    perFunction: false
+    perType: true
+    perGroupFunction: false
+  appSync: ${file(./resource/appSync.yml)}
+resources:
+  Resources:
+    TestTable:
+      Type: 'AWS::DynamoDB::Table'
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: firstName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+
+  Outputs:
+    CognitoUserPoolId:
+      Value:
+        Ref: CognitoUserPool
+    CognitoUserPoolClientId:
+      Value:
+        Ref: CognitoUserPoolClient

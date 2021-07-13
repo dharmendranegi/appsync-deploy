@@ -1,0 +1,59 @@
+input UpdateUserInput {
+    user_id: ID
+    name: String
+    email_id: String
+    phone_number: String
+    city: String
+    state: String
+    country: String
+}
+
+input CreateUserInput {
+    name: String
+    email_id: String
+    phone_number: String
+    city: String
+    state: String
+    country: String
+}
+
+"""
+for users
+"""
+type User {
+    user_id: ID
+    name: String
+    email_id: String
+    phone_number: String
+    city: String
+    state: String
+    country: String
+}
+
+
+
+type Mutation {
+    """
+    Mutations related to Users
+    """
+
+    # Creat a user
+    createUser(input: CreateUserInput!): AWSJSON
+
+    # Update user details
+    updateUser(input: UpdateUserInput!): AWSJSON
+
+    # delete an user
+    deleteUser(user_id: ID!): User
+}
+
+type Query {
+    # Query for user details
+    loadUserDetails(user_id: ID!): AWSJSON
+
+}
+
+schema {
+    query: Query
+    mutation: Mutation
+}
