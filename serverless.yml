@@ -15,7 +15,7 @@ provider:
   iamRoleStatements: ${file(./resource/LambdaRole.yml)}
 
 plugins:
-  - serverless-pseudo-parameters
+#  - serverless-pseudo-parameters
   - serverless-plugin-split-stacks
   - serverless-appsync-plugin
   - serverless-dotenv-plugin
