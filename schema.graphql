@@ -37,7 +37,7 @@ type Mutation {
     Mutations related to Users
     """
 
-    # Creat a user
+    # Creat an user
     createUser(input: CreateUserInput!): AWSJSON
 
     # Update user details
