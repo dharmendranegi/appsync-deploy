@@ -62,8 +62,8 @@ exports.handler = async event => {
     if (!("Attributes" in data)) {
       return resourceNotFound();
     }
-    data.Attributes.id = id
-    return updateResponse(data);
+    data.Attributes.id = id;
+    return updateResponse(data.Attributes);
   } catch (err) {
     console.log("err", err);
     return internalServerError(err);

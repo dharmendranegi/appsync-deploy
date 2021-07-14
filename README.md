@@ -16,7 +16,7 @@
   - Webpack for build package.
   - Eslint for file formatter.
 
-####Steps to run:
+####Steps to set up project:
 
 ### `npm install`
  - This will install all the required dependencies.
@@ -32,6 +32,14 @@
     - S3 bucket for cloudformation stack logs and API Docs.
     - Cloudformation stack.
     - Appsync
-  
-#### CI/CD Setup
-![](https://github.com/dharmendranegi/appsync-deploy/tree/test/img/image.jpg?raw=true)
+    
+### `CI/CD Setup`
+##### Creat lambda function in serverless.yml file under functions section.
+![functions](./img/functions.png?raw=true)
+
+##### AppSync configuration in serverless.yml and DynamoDB configuration.
+![functions](./img/appsync.png?raw=true)
+  - Creating one table with primary key as `id`
+  - Used split stack plugin/config for distributing resources based on type with stack count `4`
+   
+
