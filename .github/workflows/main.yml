@@ -9,7 +9,7 @@ on:
 jobs:
   format-check:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/test'
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -22,7 +22,32 @@ jobs:
       - name: Format files
         run: npm run formatCheck --verbose
 
+#  api-docs:
+#    runs-on: ubuntu-latest
+#      if: github.ref == 'refs/heads/test'
+#    steps:
+#      - uses: actions/checkout@v1
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 12
+#
+#      - name: Install serverless
+#        run: npm install serverless -g
+#
+#      - name: change directory
+#        run: cd APIDocs/
+#
+#      - name: npm install
+#        run: npm install
+#
+#      - name: change directory
+#        run: serverless --verbose
+#
+#      - name: change directory
+#        run: cd ..
+
   deploy:
+    needs: format-check
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}

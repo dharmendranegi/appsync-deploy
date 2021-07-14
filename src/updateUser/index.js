@@ -1,12 +1,13 @@
 // Function to create user record in db.
 const tableName = process.env.DYNAMODB_TABLE;
 
-const { updateUserInputValidation } = require("../../Utils/inputValidation");
 const {
   badRequestResponse,
   updateResponse,
-  internalServerError
+  internalServerError,
+  resourceNotFound
 } = require("../../Utils/responseCodes").responseMessages;
+const { updateUserInputValidation } = require("../../Utils/inputValidation");
 
 const AWS = require("aws-sdk");
 
@@ -22,28 +23,51 @@ async function updateItem() {
 
 exports.handler = async event => {
   console.log("Inside update user function", event);
-
-  const validationResult = getUserValidation(event);
+  const validationResult = updateUserInputValidation(event);
   if (validationResult.length) return badRequestResponse(validationResult);
+  const id = event.id
+  delete event.id
+  let updateExpression='set';
+  let ExpressionAttributeNames={};
+  let ExpressionAttributeValues = {};
+
+  Object.keys(event).forEach(function(key) {
+    console.log('Key : ' + key + ', Value : ' + data[key])
+    updateExpression += ` #${data[key]} = :${data[key]} ,`;
+    ExpressionAttributeNames['#'+data[key]] = data[key] ;
+    ExpressionAttributeValues[':'+data[key]]=Item[data[key]];
+  })
+  // for (const property in Item) {
+  //   updateExpression += ` #${property} = :${property} ,`;
+  //   ExpressionAttributeNames['#'+property] = property ;
+  //   ExpressionAttributeValues[':'+property]=Item[property];
+  // }
+  console.log("updateExpression", updateExpression);
+  console.log("ExpressionAttributeNames", ExpressionAttributeNames);
+  console.log("ExpressionAttributeValues", ExpressionAttributeValues);
+
 
   const params = {
     TableName: tableName,
     Key: {
-      id: event.user_id
+      id,
     },
-    UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
-    ExpressionAttributeValues: {
-      ":r": 5.5,
-      ":p": "Everything happens all at once.",
-      ":a": ["Larry", "Moe", "Curly"]
-    },
+    UpdateExpression: updateExpression,
+    ExpressionAttributeNames: ExpressionAttributeNames,
+    ExpressionAttributeValues: ExpressionAttributeValues,
     ReturnValues: "UPDATED_NEW"
   };
 
   try {
     const data = await updateItem(params);
-    return okResponse(data);
+    console.log("data", data);
+
+    if (!("Item" in data)) {
+      return resourceNotFound();
+    }
+    return updateResponse(data);
   } catch (err) {
-    return internalServerError(error);
+    console.log("err", err);
+    return internalServerError(err);
   }
 };

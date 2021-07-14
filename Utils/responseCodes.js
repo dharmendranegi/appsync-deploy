@@ -3,26 +3,36 @@ const okResponse = (body = "success") => ({
   body: JSON.stringify(body)
 });
 
-const internalServerError = async (error = "Internal server error") => {
+const internalServerError = async error => {
   return {
     statusCode: 500,
-    message: error
+    body: JSON.stringify(error)
   };
 };
 
 const createResponse = (data = "Requested data created successfully") => ({
   statusCode: 201,
-  message: data
+  body: JSON.stringify(data)
 });
 
 const updateResponse = (data = "Update successful") => ({
   statusCode: 200,
-  message: data
+  body: JSON.stringify(data)
 });
 
 const deleteResponse = data => ({
   statusCode: 204,
-  message: data
+  body: JSON.stringify(data)
+});
+
+const badRequestResponse = data => ({
+  statusCode: 400,
+  body: JSON.stringify(data)
+});
+
+const resourceNotFound = (body = "Requested resource not found") => ({
+  statusCode: 404,
+  body
 });
 
 module.exports.responseMessages = {
@@ -30,5 +40,7 @@ module.exports.responseMessages = {
   okResponse,
   createResponse,
   updateResponse,
-  deleteResponse
+  deleteResponse,
+  badRequestResponse,
+  resourceNotFound
 };

@@ -3,7 +3,8 @@
   "dependencies": {
     "aws-sdk": "^2.695.0",
     "data-api-client": "^1.0.1",
-    "html2plaintext": "^2.1.2"
+    "html2plaintext": "^2.1.2",
+    "serverless": "^2.51.2"
   },
   "description": "IFC for appsync",
   "devDependencies": {

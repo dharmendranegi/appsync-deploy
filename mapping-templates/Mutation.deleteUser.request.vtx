@@ -2,6 +2,6 @@
   "version" : "2017-02-28",
   "operation": "Invoke",
   "payload": {
-    "userId": $utils.toJson($context.args.user_id),
+    "id": $utils.toJson($context.args.id),
   }
 }

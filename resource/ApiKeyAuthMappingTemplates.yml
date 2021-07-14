@@ -6,8 +6,8 @@
 - dataSource: deleteUser
   type: Mutation
   field: deleteUser
-  request: "Query.deleteUser.request.vtx"
-  response: "Query.deleteUser.response.vtx"
+  request: "Mutation.deleteUser.request.vtx"
+  response: "Mutation.deleteUser.response.vtx"
 - dataSource: getUser
   type: Query
   field: loadUserDetails
@@ -16,5 +16,5 @@
 - dataSource: updateUser
   type: Mutation
   field: updateUser
-  request: "Query.updateUser.request.vtx"
-  response: "Query.updateUser.response.vtx"
+  request: "Mutation.updateUser.request.vtx"
+  response: "Mutation.updateUser.response.vtx"

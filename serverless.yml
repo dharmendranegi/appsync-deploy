@@ -10,7 +10,7 @@ provider:
   environment:
     REGION: ${self:provider.region}
     SERVICE_NAME: ${self:service}-${self:provider.stage}
-    STAGE: ${self:provider.stage, dev}
+    STAGE: ${self:provider.stage}
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
   iamRoleStatements: ${file(./resource/LambdaRole.yml)}
 

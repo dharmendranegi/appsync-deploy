@@ -1,17 +1,17 @@
 input UpdateUserInput {
-    user_id: ID
+    id: ID!
     name: String
-    email_id: String
-    phone_number: String
+    emailId: String
+    phoneNumber: String
     city: String
     state: String
     country: String
 }
 
 input CreateUserInput {
-    name: String
-    email_id: String
-    phone_number: String
+    name: String!
+    emailId: String!
+    phoneNumber: String
     city: String
     state: String
     country: String
@@ -21,10 +21,10 @@ input CreateUserInput {
 for users
 """
 type User {
-    user_id: ID
+    id: ID
     name: String
-    email_id: String
-    phone_number: String
+    emailId: String
+    phoneNumber: String
     city: String
     state: String
     country: String
@@ -44,12 +44,12 @@ type Mutation {
     updateUser(input: UpdateUserInput!): AWSJSON
 
     # delete an user
-    deleteUser(user_id: ID!): User
+    deleteUser(id: ID!): AWSJSON
 }
 
 type Query {
     # Query for user details
-    loadUserDetails(user_id: ID!): AWSJSON
+    loadUserDetails(id: ID!): AWSJSON
 }
 
 schema {

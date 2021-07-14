@@ -3,8 +3,7 @@
   "version" : "2018-05-29",
   "operation": "Invoke",
   "payload": {
-    "userId": $utils.toJson($context.args.id),
-    "userDetails": $utils.toJson($context.args.userDetails),
+    "userDetails": $utils.toJson($context.args.input),
     "updatedAt": $utils.toJson($util.time.nowFormatted('yyyy-MM-dd HH:mm:ssZ'))
   }
 }
