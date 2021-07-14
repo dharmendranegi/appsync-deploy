@@ -40,8 +40,8 @@ jobs:
       - name: npm install
         run: npm install
 
-      - name: change directory
-        run: serverless --verbose
+      - name: Deploy API Docs dev
+        run: serverless
 
       - name: change directory
         run: cd ..
