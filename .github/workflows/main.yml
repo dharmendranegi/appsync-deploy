@@ -7,23 +7,23 @@ on:
       - main
 
 jobs:
-  format-check:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/test'
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-
-      - name: Install npm
-        run: npm install --only dev
-
-      - name: Format files
-        run: npm run formatCheck --verbose
+#  format-check:
+#    runs-on: ubuntu-latest
+#    if: github.ref == 'refs/heads/test'
+#    steps:
+#      - uses: actions/checkout@v1
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: 12
+#
+#      - name: Install npm
+#        run: npm install --only dev
+#
+#      - name: Format files
+#        run: npm run formatCheck --verbose
 
   deploy:
-    needs: format-check
+#    needs: format-check
     runs-on: ubuntu-latest
     env:
       AWS_ACCESS_KEY_ID: ${{secrets.AWS_ACCESS_KEY_ID}}
