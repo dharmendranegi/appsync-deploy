@@ -42,4 +42,10 @@
   - Creating one table with primary key as `id`
   - Used split stack plugin/config for distributing resources based on type with stack count `4`
  
+### `For deployment two jobs has been used`
+ - First to check format of all the required js files
+![format](./img/format.png?raw=true)
+ - Second to deploy the stack in the dev and prod stage based on the branch
+![deploy](./img/deploy.png?raw=true)
+
 
