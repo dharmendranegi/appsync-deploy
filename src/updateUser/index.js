@@ -38,6 +38,7 @@ exports.handler = async event => {
     ExpressionAttributeNames["#" + key] = key;
     ExpressionAttributeValues[":" + key] = userDetails[key];
   });
+  updateExpression = updateExpression.slice(0, -1);
 
   console.log("updateExpression", updateExpression);
   console.log("ExpressionAttributeNames", ExpressionAttributeNames);
