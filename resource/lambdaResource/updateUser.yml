@@ -1,4 +1,4 @@
-handler: updateUser/index.main
+handler: updateUser/index.handler
 name: updateUser-${self:provider.stage}
 package:
   individually: true

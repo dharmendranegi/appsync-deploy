@@ -1,4 +1,4 @@
-handler: deleteUser/index.main
+handler: deleteUser/index.handler
 name: deleteUser
 package:
   individually: true

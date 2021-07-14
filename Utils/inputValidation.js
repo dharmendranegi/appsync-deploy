@@ -1,11 +1,7 @@
-const { mandatoryFieldsValidation } = require("./validators");
-
+const { mandatoryFieldsValidation } = require("../Utils/validators");
 const createUserValidation = data => {
   const errors = [];
-  const createUserMandatoryFields = [
-    "name",
-    "emailId"
-  ];
+  const createUserMandatoryFields = ["emailId", "name"];
 
   const mandatoryFieldsValidationForUsers = (mandatoryFieldsArray, dataObj) =>
     mandatoryFieldsArray.filter(
@@ -30,7 +26,7 @@ const createUserValidation = data => {
 
 const getUserValidation = data => {
   const errors = [];
-  const mandatoryFields = ["userId"];
+  const mandatoryFields = ["id"];
   const missingParameters = mandatoryFieldsValidation(mandatoryFields, data);
   if (missingParameters.length)
     errors.push(
@@ -41,30 +37,18 @@ const getUserValidation = data => {
 
 const updateUserInputValidation = data => {
   const errors = [];
+  const mandatoryFields = ["id"];
 
-  const mandatoryFields = ["userId"];
-  const mandatoryFieldsValidationForGetUser = (mandatoryFieldsArray, dataObj) =>
-    mandatoryFieldsArray.filter(
-      field =>
-        !Object.keys(dataObj).includes(field) ||
-        dataObj[field] === null ||
-        dataObj[field] === ""
-    );
-  const missingParameters = mandatoryFieldsValidationForGetUser(
-    mandatoryFields,
-    data
-  );
+  const missingParameters = mandatoryFieldsValidation(mandatoryFields, data);
   if (missingParameters.length)
     errors.push(
       `Mandatory parameters are missing: ${missingParameters.join(",")}`
     );
   return errors;
 };
-
-
 const deleteUserInputValidation = data => {
   const errors = [];
-  const mandatoryFields = ["userId"];
+  const mandatoryFields = ["id"];
   const missingParameters = mandatoryFieldsValidation(mandatoryFields, data);
   if (missingParameters.length)
     errors.push(

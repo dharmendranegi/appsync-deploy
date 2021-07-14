@@ -2,50 +2,70 @@
 const tableName = process.env.DYNAMODB_TABLE;
 
 const {
-  updateUserInputValidation
-} = require("../../Utils/inputValidation");
-const {
   badRequestResponse,
   updateResponse,
-  internalServerError
+  internalServerError,
+  resourceNotFound
 } = require("../../Utils/responseCodes").responseMessages;
+const { updateUserInputValidation } = require("../../Utils/inputValidation");
 
-const AWS = require('aws-sdk');
+const AWS = require("aws-sdk");
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-
-async function updateItem(){
+async function updateItem(params) {
   try {
-    return await dynamoDb.update(params).promise()
+    return await dynamoDb.update(params).promise();
   } catch (err) {
-    return err
+    return err;
   }
 }
 
-exports.handler = async (event) => {
+exports.handler = async event => {
   console.log("Inside update user function", event);
-
-  const validationResult = getUserValidation(event);
+  const validationResult = updateUserInputValidation(event.userDetails);
   if (validationResult.length) return badRequestResponse(validationResult);
+  const { userDetails } = event;
+  const id = userDetails.id;
+  delete userDetails.id;
+
+  let updateExpression = "set";
+  let ExpressionAttributeNames = {};
+  let ExpressionAttributeValues = {};
+
+  //Constructing input for update
+  Object.keys(userDetails).forEach(function(key) {
+    updateExpression += ` #${key} = :${key} ,`;
+    ExpressionAttributeNames["#" + key] = key;
+    ExpressionAttributeValues[":" + key] = userDetails[key];
+  });
+  updateExpression = updateExpression.slice(0, -1);
+
+  console.log("updateExpression", updateExpression);
+  console.log("ExpressionAttributeNames", ExpressionAttributeNames);
+  console.log("ExpressionAttributeValues", ExpressionAttributeValues);
 
   const params = {
-    TableName : tableName,
+    TableName: tableName,
     Key: {
-      id: '12345'
+      id
     },
-    UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
-    ExpressionAttributeValues:{
-      ":r":5.5,
-      ":p":"Everything happens all at once.",
-      ":a":["Larry", "Moe", "Curly"]
-    },
-    ReturnValues:"UPDATED_NEW"
-  }
+    UpdateExpression: updateExpression,
+    ExpressionAttributeNames: ExpressionAttributeNames,
+    ExpressionAttributeValues: ExpressionAttributeValues,
+    ReturnValues: "UPDATED_NEW"
+  };
+
   try {
-    const data = await updateItem()
-    return okResponse(data)
+    const data = await updateItem(params);
+    //Checking id Attributes key not present in response which means item id is invalid
+    if (!("Attributes" in data)) {
+      return resourceNotFound();
+    }
+    data.Attributes.id = id;
+    return updateResponse(data.Attributes);
   } catch (err) {
-    return internalServerError(error)
+    console.log("err", err);
+    return internalServerError(err);
   }
-}
+};

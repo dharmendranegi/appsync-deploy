@@ -17,7 +17,7 @@ node_modules
 .env
 
 # JS bundle
-dist
+/dist/
 /Users/
 /.dynamodb/
 /docs/
