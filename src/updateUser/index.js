@@ -35,16 +35,11 @@ exports.handler = async event => {
   let ExpressionAttributeValues = {};
 
   Object.keys(userDetails).forEach(function(key) {
-    console.log("Key : " + key + ", Value : " + userDetails[key]);
-    updateExpression += ` #${userDetails[key]} = :${userDetails[key]} ,`;
-    ExpressionAttributeNames["#" + userDetails[key]] = userDetails[key];
-    ExpressionAttributeValues[":" + userDetails[key]] = Item[userDetails[key]];
+    updateExpression += ` #${key} = :${key} ,`;
+    ExpressionAttributeNames["#" + key] = key;
+    ExpressionAttributeValues[":" + key] = userDetails[key];
   });
-  // for (const property in Item) {
-  //   updateExpression += ` #${property} = :${property} ,`;
-  //   ExpressionAttributeNames['#'+property] = property ;
-  //   ExpressionAttributeValues[':'+property]=Item[property];
-  // }
+
   console.log("updateExpression", updateExpression);
   console.log("ExpressionAttributeNames", ExpressionAttributeNames);
   console.log("ExpressionAttributeValues", ExpressionAttributeValues);
