@@ -23,15 +23,18 @@ async function updateItem() {
 
 exports.handler = async event => {
   console.log("Inside update user function", event);
-  const validationResult = updateUserInputValidation(event);
+  const validationResult = updateUserInputValidation(event.userDetails);
   if (validationResult.length) return badRequestResponse(validationResult);
-  const id = event.id;
-  delete event.id;
+  const { userDetails } = event;
+  userDetails.updatedAt = event.updatedAt;
+  const id = userDetails.id;
+  delete userDetails.id;
+
   let updateExpression = "set";
   let ExpressionAttributeNames = {};
   let ExpressionAttributeValues = {};
 
-  Object.keys(event).forEach(function(key) {
+  Object.keys(userDetails).forEach(function(key) {
     console.log("Key : " + key + ", Value : " + data[key]);
     updateExpression += ` #${data[key]} = :${data[key]} ,`;
     ExpressionAttributeNames["#" + data[key]] = data[key];
