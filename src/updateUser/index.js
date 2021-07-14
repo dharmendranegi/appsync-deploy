@@ -13,7 +13,7 @@ const AWS = require("aws-sdk");
 
 const dynamoDb = new AWS.DynamoDB.DocumentClient();
 
-async function updateItem() {
+async function updateItem(params) {
   try {
     return await dynamoDb.update(params).promise();
   } catch (err) {
