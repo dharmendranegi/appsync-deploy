@@ -41,5 +41,5 @@
 ![functions](./img/appsync.png?raw=true)
   - Creating one table with primary key as `id`
   - Used split stack plugin/config for distributing resources based on type with stack count `4`
-   
+ 
 
