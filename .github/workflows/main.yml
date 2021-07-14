@@ -25,8 +25,8 @@ jobs:
   api-docs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/test'
-    env:
-      SLS_INTERACTIVE_SETUP_ENABLE: 1
+#    env:
+#      SLS_INTERACTIVE_SETUP_ENABLE: 1
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
@@ -43,7 +43,7 @@ jobs:
         run: npm install
 
       - name: Deploy API Docs dev
-        run: serverless
+        run: serverless deploy
 
       - name: change directory
         run: cd ..
