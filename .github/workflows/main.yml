@@ -22,32 +22,6 @@ jobs:
       - name: Format files
         run: npm run formatCheck --verbose
 
-  api-docs:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/test'
-#    env:
-#      SLS_INTERACTIVE_SETUP_ENABLE: 1
-    steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: 12
-
-      - name: Install serverless
-        run: npm install serverless -g
-
-      - name: change directory
-        run: cd APIDocs/
-
-      - name: npm install
-        run: npm install
-
-      - name: Deploy API Docs dev
-        run: serverless deploy
-
-      - name: change directory
-        run: cd ..
-
   deploy:
     needs: format-check
     runs-on: ubuntu-latest
