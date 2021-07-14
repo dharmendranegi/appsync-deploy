@@ -26,7 +26,6 @@ exports.handler = async event => {
   const validationResult = updateUserInputValidation(event.userDetails);
   if (validationResult.length) return badRequestResponse(validationResult);
   const { userDetails } = event;
-  userDetails.updatedAt = event.updatedAt;
   const id = userDetails.id;
   delete userDetails.id;
 
