@@ -25,18 +25,18 @@ exports.handler = async event => {
   console.log("Inside update user function", event);
   const validationResult = updateUserInputValidation(event);
   if (validationResult.length) return badRequestResponse(validationResult);
-  const id = event.id
-  delete event.id
-  let updateExpression='set';
-  let ExpressionAttributeNames={};
+  const id = event.id;
+  delete event.id;
+  let updateExpression = "set";
+  let ExpressionAttributeNames = {};
   let ExpressionAttributeValues = {};
 
   Object.keys(event).forEach(function(key) {
-    console.log('Key : ' + key + ', Value : ' + data[key])
+    console.log("Key : " + key + ", Value : " + data[key]);
     updateExpression += ` #${data[key]} = :${data[key]} ,`;
-    ExpressionAttributeNames['#'+data[key]] = data[key] ;
-    ExpressionAttributeValues[':'+data[key]]=Item[data[key]];
-  })
+    ExpressionAttributeNames["#" + data[key]] = data[key];
+    ExpressionAttributeValues[":" + data[key]] = Item[data[key]];
+  });
   // for (const property in Item) {
   //   updateExpression += ` #${property} = :${property} ,`;
   //   ExpressionAttributeNames['#'+property] = property ;
@@ -46,11 +46,10 @@ exports.handler = async event => {
   console.log("ExpressionAttributeNames", ExpressionAttributeNames);
   console.log("ExpressionAttributeValues", ExpressionAttributeValues);
 
-
   const params = {
     TableName: tableName,
     Key: {
-      id,
+      id
     },
     UpdateExpression: updateExpression,
     ExpressionAttributeNames: ExpressionAttributeNames,
