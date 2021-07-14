@@ -33,3 +33,5 @@
     - Cloudformation stack.
     - Appsync
   
+#### CI/CD Setup
+![](https://github.com/dharmendranegi/appsync-deploy/tree/test/img/image.jpg?raw=true)

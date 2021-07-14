@@ -33,6 +33,7 @@ exports.handler = async event => {
   let ExpressionAttributeNames = {};
   let ExpressionAttributeValues = {};
 
+  //Constructing input for update
   Object.keys(userDetails).forEach(function(key) {
     updateExpression += ` #${key} = :${key} ,`;
     ExpressionAttributeNames["#" + key] = key;
@@ -57,11 +58,11 @@ exports.handler = async event => {
 
   try {
     const data = await updateItem(params);
-    console.log("data", data);
-
-    if (!("Item" in data)) {
+    //Checking id Attributes key not present in response which means item id is invalid
+    if (!("Attributes" in data)) {
       return resourceNotFound();
     }
+    data.Attributes.id = id
     return updateResponse(data);
   } catch (err) {
     console.log("err", err);
