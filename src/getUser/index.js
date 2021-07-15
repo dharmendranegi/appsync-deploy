@@ -1,4 +1,4 @@
-// Function to create user record in db.
+// Function to get user record from db.
 const tableName = process.env.DYNAMODB_TABLE;
 
 const {
