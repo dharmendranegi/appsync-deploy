@@ -1,13 +1,10 @@
-// Function to create user record in db.
 const tableName = process.env.DYNAMODB_TABLE;
 
 const {
-  badRequestResponse,
   updateResponse,
   internalServerError,
   resourceNotFound
 } = require("../../Utils/responseCodes").responseMessages;
-const { updateUserInputValidation } = require("../../Utils/inputValidation");
 
 const AWS = require("aws-sdk");
 
@@ -23,8 +20,8 @@ async function updateItem(params) {
 
 exports.handler = async event => {
   console.log("Inside update user function", event);
-  const validationResult = updateUserInputValidation(event.userDetails);
-  if (validationResult.length) return badRequestResponse(validationResult);
+  //TODO  validate input
+
   const { userDetails } = event;
   const id = userDetails.id;
   delete userDetails.id;

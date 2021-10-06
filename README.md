@@ -3,8 +3,7 @@
 
 ###Complete IAC for Appsync api integrated with lambda and dynamodb.
 
-## Services used in the project.
-  - AWS cloud.
+## Services used.
   - AWS Lambda
   - AWS Appsync
   - DynamoDB
@@ -34,7 +33,7 @@
     - Appsync
     
 ### `CI/CD Setup`
-##### Creat lambda function in serverless.yml file under functions section.
+##### Create lambda function in serverless.yml file under functions section.
 ![functions](./img/functions.png?raw=true)
 
 ##### AppSync configuration in serverless.yml and DynamoDB configuration.
@@ -42,7 +41,7 @@
   - Creating one table with primary key as `id`
   - Used split stack plugin/config for distributing resources based on type with stack count `4`
  
-### `For deployment two jobs has been used`
+### `Deployment jobs`
  - First to check format of all the required js files
 ![format](./img/format.png?raw=true)
  - Second to deploy the stack in the dev and prod stage based on the branch

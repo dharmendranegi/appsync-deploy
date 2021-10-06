@@ -4,11 +4,9 @@ const uuid = require("uuid");
 const tableName = process.env.DYNAMODB_TABLE;
 
 const {
-  badRequestResponse,
   createResponse,
   internalServerError
 } = require("../../Utils/responseCodes").responseMessages;
-const { createUserValidation } = require("../../Utils/inputValidation");
 
 const AWS = require("aws-sdk");
 
@@ -24,8 +22,7 @@ async function createItem(params) {
 
 exports.handler = async event => {
   console.log("Inside createUser function", event);
-  const validationResult = createUserValidation(event);
-  if (validationResult.length) return badRequestResponse(validationResult);
+  //TODO  validate input
 
   const id = uuid.v4();
 
