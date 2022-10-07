@@ -1,5 +1,5 @@
 #### Current Architecture
-![Appsync]((./img/Flow.png?raw=true))
+![Appsync](./img/Flow.png?raw=true)
 
 ###Complete IAC for Appsync api integrated with lambda and dynamodb.
 

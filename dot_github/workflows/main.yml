@@ -45,7 +45,7 @@ jobs:
 
       - name: Deploy dev
         if: github.ref == 'refs/heads/test'
-        run: serverless deploy --stage dev --region us-west-2 --verbose
+        run: serverless deploy --stage dev --region ${{secrets.dev_region}} --verbose   # create your secrets in github
       - name: Deploy production
         if: github.ref == 'refs/heads/main'
-        run: serverless deploy --stage dev --region eu-west-1 --verbose
+        run: serverless deploy --stage prod --region ${{secrets.prod_region}} --verbose   # create your secrets in github

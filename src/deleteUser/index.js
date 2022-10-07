@@ -2,11 +2,9 @@
 const tableName = process.env.DYNAMODB_TABLE;
 
 const {
-  badRequestResponse,
   deleteResponse,
   internalServerError
 } = require("../../Utils/responseCodes").responseMessages;
-const { deleteUserInputValidation } = require("../../Utils/inputValidation");
 
 const AWS = require("aws-sdk");
 
@@ -22,8 +20,7 @@ async function deleteItem(params) {
 
 exports.handler = async event => {
   console.log("Inside deleteUser function", event);
-  const validationResult = deleteUserInputValidation(event);
-  if (validationResult.length) return badRequestResponse(validationResult);
+  //TODO  validate input
 
   const params = {
     TableName: tableName,
