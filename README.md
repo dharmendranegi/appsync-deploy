@@ -1,9 +1,9 @@
 #### Current Architecture
-![Appsync](https://appsync-deploy-docs.s3.ap-south-1.amazonaws.com/appsync.PNG)
+![Appsync](./img/Flow.png?raw=true)
 
 ###Complete IAC for Appsync api integrated with lambda and dynamodb.
 
-## Services used.
+## Services used in the project.
   - AWS Lambda
   - AWS Appsync
   - DynamoDB
@@ -24,8 +24,8 @@
  - Launches the eslint to format the js files.
 
 ### `sls deploy`
- - This command will deploy it to aws account with default stage dev.
- - And will create following resources:
+ - Deploy it to aws account with default stage dev.
+ - Resources:
     - Lambda.
     - DynamoDB.
     - S3 bucket for cloudformation stack logs and API Docs.
@@ -33,18 +33,18 @@
     - Appsync
     
 ### `CI/CD Setup`
-##### Create lambda function in serverless.yml file under functions section.
+##### Lambda configuration.
 ![functions](./img/functions.png?raw=true)
 
-##### AppSync configuration in serverless.yml and DynamoDB configuration.
+##### AppSync and DynamoDB configuration.
 ![functions](./img/appsync.png?raw=true)
-  - Creating one table with primary key as `id`
+  - Table with partition key as `id`
   - Used split stack plugin/config for distributing resources based on type with stack count `4`
  
 ### `Deployment jobs`
- - First to check format of all the required js files
+ - First check format of all the required js files
 ![format](./img/format.png?raw=true)
- - Second to deploy the stack in the dev and prod stage based on the branch
+ - Deploy the stack in the dev and prod stage based on the branch
 ![deploy](./img/deploy.png?raw=true)
 
 
