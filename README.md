@@ -42,9 +42,9 @@
   - Used split stack plugin/config for distributing resources based on type with stack count `4`
  
 ### `Deployment jobs`
- - First check format of all the required js files
-![format](./img/format.png?raw=true)
+ - Eslint js files
+ - ![format](./img/format.png?raw=true)
  - Deploy the stack in the dev and prod stage based on the branch
-![deploy](./img/deploy.png?raw=true)
+ - ![deploy](./img/deploy.png?raw=true)
 
 
